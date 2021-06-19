@@ -36,6 +36,35 @@
 
       <?php } ?>
       
+      <?php
+        if( $result['commonContent']['roles'] != null and $result['commonContent']['roles']->view_media == 1){
+      ?>
+      <li class="treeview {{ Request::is('admin/gallery/display') ? 'active' : '' }} {{ Request::is('admin/gallery/addGallery') ? 'active' : '' }} {{ Request::is('admin/gallery/editGallery/*') ? 'active' : '' }} {{ Request::is('admin/gallery/add/*') ? 'active' : '' }}">
+          <a href="{{ URL::to('admin/gallery/display')}}">
+            <i class="fa fa-users" aria-hidden="true"></i> <span>Gallery</span>
+          </a>
+        </li>
+      <?php } ?>
+
+      <?php
+        if( $result['commonContent']['roles'] != null and $result['commonContent']['roles']->view_media == 1){
+      ?>
+      <li class="treeview {{ Request::is('admin/introPages/display') ? 'active' : '' }} {{ Request::is('admin/introPages/add') ? 'active' : '' }} {{ Request::is('admin/introPages/edit/*') ? 'active' : '' }}">
+          <a href="{{ URL::to('admin/introPages/display')}}">
+            <i class="fa fa-users" aria-hidden="true"></i> <span>Intro Pages</span>
+          </a>
+        </li>
+      <?php } ?>
+
+      <?php
+        if( $result['commonContent']['roles'] != null and $result['commonContent']['roles']->view_media == 1){
+      ?>
+      <li class="treeview {{ Request::is('admin/cmspages/display') ? 'active' : '' }} {{ Request::is('admin/cmspages/add') ? 'active' : '' }} {{ Request::is('admin/cmspages/edit/*') ? 'active' : '' }}">
+          <a href="{{ URL::to('admin/cmspages/display')}}">
+            <i class="fa fa-users" aria-hidden="true"></i> <span>CMS Pages</span>
+          </a>
+        </li>
+      <?php } ?>
           
       <?php
         if($result['commonContent']['roles']!= null and $result['commonContent']['roles']->customers_view == 1){

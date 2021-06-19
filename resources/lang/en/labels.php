@@ -2317,6 +2317,8 @@ return [
 'stocktype'=>'Stock Type',
 'stocktypetext'=>'Please choose stock type IN/OUT',
 'in'=>'IN',
-'out'=>'OUT'
+'out'=>'OUT',
+'Gallery' => 'Gallery',
+'ViewAllImages' => 'View All Images',
 
 ];

@@ -126,7 +126,63 @@ $("img").click(function() {
     });
 
   });
+  $("#btn_event").click(function() {
 
+	if (confirm('Are You Sure To Delete This?')) {
+
+		var imgs = $("img.hover").length;
+		var parentFrom = $('#images_form');
+		var formData = parentFrom.serialize();
+		console.log(imgs);
+		if(imgs>0){
+			$.ajax({
+			url: '{{ URL::to("admin/gallery/delete")}}',
+			type: "POST",
+			data: formData,
+			success: function (res) {
+					if(res == 'success'){
+						location.reload();
+					}
+				},
+			});
+		}else{
+			alert('Please choose image first.');	
+		}
+		
+	} else {
+		// Do nothing!
+		
+	}
+
+
+
+	});
+
+	jQuery("#btn_event11").click(function() {
+	var images =  '<?php echo $images; ?>';
+	var all_images = JSON.parse(images);
+	jQuery.each(all_images, function() {
+	jQuery('.test_image').addClass("hover");
+
+	});
+	var id = [];
+	$(".hover").each(function() {
+	id.push(jQuery(this).attr("image_id"));
+
+	});
+	jQuery('#images').val(id);
+
+	});
+
+	jQuery("#btn_event12").click(function() {
+	var images =  '<?php echo $images; ?>';
+	var all_images = JSON.parse(images);
+	jQuery.each(all_images, function() {
+	jQuery('.test_image').removeClass("hover");
+
+	});
+
+	});
 
 });
 
@@ -1533,6 +1589,41 @@ $(document).on('click', '#updateAddress', function(e){
 		$("#deleteCustomerModal").modal('show');
 	});
 
+	//deleteEventModal
+	$(document).on('click', '#deleteGalleryFrom', function(){
+		var gallery_id = $(this).attr('gallery_id');
+		$('#gallery_id').val(gallery_id);
+		$("#deleteGalleryModal").modal('show');
+	});
+
+	// deleteEventItemModal
+	$(document).on('click', '#deleteGalleryItemFrom', function(){
+		var gallery_item_id = $(this).attr('gallery_item_id');
+		$('#gallery_item_id').val(gallery_item_id);
+		$("#deleteGalleryItemModal").modal('show');
+	});
+
+	// // editEventItemModal
+	// $(document).on('click', '#editEventItemFrom', function(){
+	// 	// var event_item_id = $(this).attr('event_item_id');
+	// 	// $('#event_item_id_edit').val(event_item_id);
+	// 	$("#editEventItemModal").modal('show');
+	// });
+
+	// deleteIntroPagesModal
+	$(document).on('click', '#deleteintropage', function(){
+		var intro_page_id = $(this).attr('intro_page_id');
+		$('#intro_page_id').val(intro_page_id);
+		$("#deleteIntroPagesModal").modal('show');
+	});
+
+	// deletecmspage
+	$(document).on('click', '#deletecmspage', function(){
+		var cms_page_id = $(this).attr('cms_page_id');
+		$('#cms_page_id').val(cms_page_id);
+		$("#deleteCmsPagesModal").modal('show');
+	});
+
 	//deletemanufacturerModal
 	$(document).on('click', '#manufacturerFrom', function(){
 		var manufacturers_id = $(this).attr('manufacturers_id');
@@ -2570,6 +2661,34 @@ $( "#registration" ).on('click','#submit',function( event ) {
 
 
 
+// Dropzone.options.myDropzone = {
+//     paramName: 'file',
+//     maxFilesize: 5, // MB
+//     maxFiles: 20,
+//     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+//     init: function() {
+//         this.on("success", function(file, response) {
+//             var a = document.createElement('span');
+//             // a.className = "thumb-url btn btn-primary";
+//             a.setAttribute('data-clipboard-text','{{url('admin/media/uploadimage')}}'+'/'+response);
+//             // a.innerHTML = "copy url";
+//             file.previewTemplate.appendChild(a);
+
+
+
+
+//         });
+
+//         this.on("success", function(){
+//             $("#compelete").removeAttr("disabled");
+//             $("#compelete").click(function(){
+
+//             location.reload()})});
+
+
+//     }
+// };
+
 Dropzone.options.myDropzone = {
     paramName: 'file',
     maxFilesize: 5, // MB
@@ -2579,7 +2698,7 @@ Dropzone.options.myDropzone = {
         this.on("success", function(file, response) {
             var a = document.createElement('span');
             // a.className = "thumb-url btn btn-primary";
-            a.setAttribute('data-clipboard-text','{{url('admin/media/uploadimage')}}'+'/'+response);
+            a.setAttribute('data-clipboard-text','{{url('admin/gallery/uploadimage')}}'+'/'+response);
             // a.innerHTML = "copy url";
             file.previewTemplate.appendChild(a);
 
@@ -2597,8 +2716,6 @@ Dropzone.options.myDropzone = {
 
     }
 };
-
-
 
 
 $('.thumb-url').tooltip({

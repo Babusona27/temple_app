@@ -88,6 +88,27 @@ Route::group(['middleware' => ['installer']], function () {
         Route::post('/regenerateimage', 'MediaController@regenerateimage')->middleware('add_media');
     });
 
+    Route::group(['prefix' => 'admin/gallery', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {
+        Route::get('/display', 'GalleryController@display')->middleware('view_media');
+        Route::get('/addGallery', 'GalleryController@addGallery')->middleware('add_media');
+        Route::post('/addGallery', 'GalleryController@insert')->middleware('add_media');
+        Route::post('/deleteGallery', 'GalleryController@deleteGallery')->middleware('add_media');
+        Route::post('/deleteGalleryItem', 'GalleryController@deleteGalleryItem')->middleware('add_media');
+        Route::post('/updateGalleryItemDec', 'GalleryController@updateGalleryItemDec')->middleware('add_media');
+
+        Route::get('/editGallery/{id}', 'GalleryController@editGallery')->middleware('add_media');
+        Route::post('/updateGallery', 'GalleryController@updateGallery')->middleware('add_media');
+        Route::post('/uploadItemVideo', 'GalleryController@uploadItemVideo')->middleware('add_media');
+        
+        Route::get('/add/{id}', 'GalleryController@add')->middleware('add_media');
+        // Route::post('/updatemediasetting', 'GalleryController@updatemediasetting')->middleware('edit_media');
+        Route::post('/uploadimage', 'GalleryController@fileUpload')->middleware('add_media');
+        Route::post('/delete', 'GalleryController@deleteimage')->middleware('delete_media');
+        // Route::get('/detail/{id}', 'GalleryController@detailimage')->middleware('view_media');
+        // Route::get('/refresh', 'GalleryController@refresh');
+        // Route::post('/regenerateimage', 'GalleryController@regenerateimage')->middleware('add_media');
+    });
+
     // Route::group(['prefix' => 'admin/theme', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {
     //     Route::get('/setting', 'ThemeController@index');
     //     Route::get('/setting/{id}', 'ThemeController@moveToBanners');
@@ -255,6 +276,7 @@ Route::group(['middleware' => ['installer']], function () {
         Route::post('/deleteAddress', 'CustomersController@deleteAddress')->middleware('edit_customer');
     });
 
+
     // Route::group(['prefix' => 'admin/countries', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {
     //     Route::get('/filter', 'CountriesController@filter')->middleware('view_tax');
     //     Route::get('/display', 'CountriesController@index')->middleware('view_tax');
@@ -377,6 +399,24 @@ Route::group(['middleware' => ['installer']], function () {
         Route::post('/delete', 'BannersController@deleteBanner')->middleware('edit_app_setting');
         Route::get('/filter', 'BannersController@filterbanners')->middleware('edit_app_setting');
 
+    });
+
+    Route::group(['prefix' => 'admin/introPages', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {
+        Route::get('/display', 'AdminController@displayIntroPages');
+        Route::get('/add', 'AdminController@addIntroPages');
+        Route::post('/insert', 'AdminController@insertIntroPages');
+        Route::get('/edit/{id}', 'AdminController@editIntroPages');
+        Route::post('/update', 'AdminController@updateIntroPages');
+        Route::post('/delete', 'AdminController@deleteIntroPages');
+    });
+
+    Route::group(['prefix' => 'admin/cmspages', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {
+        Route::get('/display', 'AdminController@displayCmsPages');
+        Route::get('/add', 'AdminController@addCmsPages');
+        Route::post('/insert', 'AdminController@insertCmsPages');
+        Route::get('/edit/{id}', 'AdminController@editCmsPages');
+        Route::post('/update', 'AdminController@updateCmsPages');
+        Route::post('/delete', 'AdminController@deleteCmsPages');
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {

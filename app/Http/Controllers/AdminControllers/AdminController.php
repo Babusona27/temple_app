@@ -1233,4 +1233,151 @@ class AdminController extends Controller
 	}
 
 
+	/************** display Intro Pages ****************/
+	public function displayIntroPages(){
+
+	$introPagesList = DB::table('intro_pages')->get();
+	// echo "<pre>"; print_r($faqList);exit;
+	$result['commonContent'] = $this->Setting->commonContent();
+	return view("admin/intropages/index")->with('introPagesList', $introPagesList)->with('result', $result);
+	}
+	/************** display Intro Pages ****************/
+
+	/************** add Intro Pages ****************/
+	public function addIntroPages(){
+	$result['commonContent'] = $this->Setting->commonContent();
+	return view("admin/intropages/add")->with('result', $result);
+	}
+	/************** add Intro Pages ****************/
+
+	/************** insert Intro Pages ****************/
+	public function insertIntroPages(Request $request){
+	if($request->intro_page_Content == ""){
+		$message = "Please add some Description";
+		return redirect()->back()->withErrors([$message]);
+	}
+	$faqInsert = DB::table('intro_pages')->insert([
+		'intro_page_title'	=>	$request->intro_page_title,
+		'intro_page_Content'	=>	$request->intro_page_Content,
+		'intro_page_status'	=>	$request->intro_page_status
+		]);
+	$message = "Added successfully";
+	return redirect()->back()->withErrors([$message]);
+	}
+	/************** add Intro Pages ****************/
+
+	/************** edit Intro Pages ****************/
+	public function editIntroPages(Request $request){
+
+		$introPageDetails = DB::table('intro_pages')->where('intro_page_id','=',$request->id)->first();
+
+		$result['commonContent'] = $this->Setting->commonContent();
+		return view("admin/intropages/edit")->with('introPageDetails', $introPageDetails)->with('result', $result);
+		}
+		/************** edit Intro Pages ****************/
+
+		/************** update Intro Pages ****************/
+		public function updateIntroPages(Request $request){
+			// echo "<pre>"; print_r($request->all());exit;
+			
+		if($request->intro_page_Content == ""){
+			$message = "Please add some Description";
+			return redirect()->back()->withErrors([$message]);
+		}
+		DB::table('intro_pages')->where('intro_page_id','=',$request->intro_page_id)
+			->update([
+				'intro_page_title'	=>	$request->intro_page_title,
+				'intro_page_Content'=>	$request->intro_page_Content,
+				'intro_page_status'	=>	$request->intro_page_status
+			]);
+
+			$message = "Updated successfully";
+			return redirect()->back()->withErrors([$message]);
+
+		}
+		/************** update Intro Pages ****************/
+
+		/************** deleteIntroPages ****************/
+		public function deleteIntroPages(Request $request){
+		DB::table('intro_pages')->where('intro_page_id','=',$request->intro_page_id)->delete();
+
+		$message = "Intro Pages Successfully deleted";
+		return redirect()->back()->withErrors([$message]);
+
+	}
+	/************** deleteIntroPages ****************/
+
+	/************** display CMS Pages ****************/
+	public function displayCmsPages(){
+
+		$cmsPagesList = DB::table('cms_pages')->get();
+		$result['commonContent'] = $this->Setting->commonContent();
+		return view("admin/cmspages/index")->with('cmsPagesList', $cmsPagesList)->with('result', $result);
+	}
+	/************** display CMS Pages ****************/
+
+	/************** add CMS Pages ****************/
+	public function addCmsPages(){
+	$result['commonContent'] = $this->Setting->commonContent();
+	return view("admin/cmspages/add")->with('result', $result);
+	}
+	/************** add CMS Pages ****************/
+
+	/************** insert CMS Pages ****************/
+	public function insertCmsPages(Request $request){
+	if($request->cms_page_Content == ""){
+		$message = "Please add some Description";
+		return redirect()->back()->withErrors([$message]);
+	}
+	$faqInsert = DB::table('cms_pages')->insert([
+		'cms_page_title'	=>	$request->cms_page_title,
+		'cms_page_Content'	=>	$request->cms_page_Content,
+		'cms_page_status'	=>	$request->cms_page_status
+		]);
+	$message = "Added successfully";
+	return redirect()->back()->withErrors([$message]);
+	}
+	/************** add CMS Pages ****************/
+
+	/************** edit CMS Pages ****************/
+	public function editCmsPages(Request $request){
+
+		$cmsPageDetails = DB::table('cms_pages')->where('cms_page_id','=',$request->id)->first();
+
+		$result['commonContent'] = $this->Setting->commonContent();
+		return view("admin/cmspages/edit")->with('cmsPageDetails', $cmsPageDetails)->with('result', $result);
+		}
+		/************** edit CMS Pages ****************/
+
+		/************** update CMS Pages ****************/
+		public function updateCmsPages(Request $request){
+			// echo "<pre>"; print_r($request->all());exit;
+			
+		if($request->cms_page_Content == ""){
+			$message = "Please add some Description";
+			return redirect()->back()->withErrors([$message]);
+		}
+		DB::table('cms_pages')->where('cms_page_id','=',$request->cms_page_id)
+			->update([
+				'cms_page_title'	=>	$request->cms_page_title,
+				'cms_page_Content'=>	$request->cms_page_Content,
+				'cms_page_status'	=>	$request->cms_page_status
+			]);
+
+			$message = "Updated successfully";
+			return redirect()->back()->withErrors([$message]);
+
+		}
+		/************** update CMS Pages ****************/
+
+		/************** deleteCmsPages ****************/
+		public function deleteCmsPages(Request $request){
+		DB::table('cms_pages')->where('cms_page_id','=',$request->cms_page_id)->delete();
+
+		$message = "CMS Pages Successfully deleted";
+		return redirect()->back()->withErrors([$message]);
+
+	}
+	/************** deleteCmsPages ****************/
+
 }
